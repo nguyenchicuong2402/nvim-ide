@@ -1,61 +1,119 @@
--- Install Packer automatically if it's not installed(Bootstraping)
--- Hint: string concatenation is done by `..`
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+local fn = vim.fn
+local installPath = DATA_PATH..'/site/pack/packer/start/packer.nvim'
+
+-- install packer if it's not installed already
+local packerBootstrap = nil
+if fn.empty(fn.glob(installPath)) > 0 then
+  packerBootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', installPath})
+  vim.cmd [[packadd packer.nvim]]
 end
-local packer_bootstrap = ensure_packer()
 
-
--- Reload configurations if we modify plugins.lua
--- Hint
---     <afile> - replaced with the filename of the buffer being manipulated
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
-
-
--- Install plugins here - `use ...`
--- Packer.nvim hints
---     after = string or list,           -- Specifies plugins to load before this plugin. See "sequencing" below
---     config = string or function,      -- Specifies code to run after this plugin is loaded
---     requires = string or list,        -- Specifies plugin dependencies. See "dependencies". 
---     ft = string or list,              -- Specifies filetypes which load this plugin.
---     run = string, function, or table, -- Specify operations to be run after successful installs/updates of a plugin
 local packer = require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+  -- Packer should manage itself
+  use 'wbthomason/packer.nvim'
 
-    use 'tanvirtin/monokai.nvim'
+  -- colorscheme
+  use 'drewtempelmeyer/palenight.vim'
 
-    -- Auto completion
-    use { 'neovim/nvim-lspconfig' }
-    use { 'hrsh7th/nvim-cmp', config = [[require('config.nvim-cmp')]] }
-    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
-    use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }        -- buffer auto-completion
-    use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }          -- path auto-completion
-    use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }       -- cmdline auto-completion
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
+  -- git integration
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    }
+  }
 
-    -- LSP
-    use { 'williamboman/mason.nvim' }
-    use { 'williamboman/mason-lspconfig.nvim'}
-  
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-        require('packer').sync()
+  -- surround vim
+  use 'tpope/vim-surround'
+
+  -- nerd commenter
+  use 'scrooloose/nerdcommenter'
+
+  -- status line
+  use 'glepnir/galaxyline.nvim'
+
+  -- show recent files on empty nvim command
+  use 'mhinz/vim-startify'
+
+  -- lsp config
+  use {
+    'neovim/nvim-lspconfig',
+    'williamboman/nvim-lsp-installer',
+  }
+
+  -- for LSP autocompletion
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+
+  -- For vsnip users.
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
+
+  -- TODO: prettify telescope vim, make it use regex & shorten the window
+  -- telescope - searching / navigation
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-live-grep-args.nvim' }
+    },
+    config = function()
+        require('telescope').load_extension('live_grep_args')
     end
+  }
+ 
+  -- better hotfix window (for showing and searching through results in telescope's find usages)
+  -- TODO: learn how to use?
+  use {"kevinhwang91/nvim-bqf"}
+
+  -- better highlighting
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'nvim-tree'.setup {} end
+  }
+
+  -- prettier tabs
+  use 'romgrk/barbar.nvim'
+
+  -- nice diagnostic pane on the bottom
+  use 'folke/lsp-trouble.nvim'
+
+  -- support the missing lsp diagnostic colors
+  use 'folke/lsp-colors.nvim'
+
+  -- better LSP UI (for code actions, rename etc.)
+  use 'tami5/lspsaga.nvim'
+
+  -- show indentation levels
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  -- highlight variables under cursor
+  use 'RRethy/vim-illuminate'
+
+  -- this will automatically install listed dependencies
+  -- only the first time NeoVim is opened, because that's when Packer gets installed
+  if packerBootstrap then
+    require('packer').sync()
+  end
 end)
+
+-- plugin specific configs go here
+require('plugin-config/nvim-cmp')
+require('plugin-config/telescope')
+require('plugin-config/nvim-tree')
+require('plugin-config/nvim-treesitter')
+require('plugin-config/barbar')
+require('plugin-config/lsp-colors')
+require('plugin-config/lsp-trouble')
+require('plugin-config/lspsaga')
+require('plugin-config/galaxyline')
+require('plugin-config/gitsigns')
+require('plugin-config/indent-guide-lines')
 
 return packer
