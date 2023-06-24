@@ -1,4 +1,3 @@
--- TODO( fix
 local cmp = require'cmp'
 cmp.setup({
     snippet = {
@@ -28,7 +27,7 @@ cmp.setup({
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
-        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
         { name = 'buffer' },
     })
