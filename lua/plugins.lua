@@ -70,7 +70,7 @@ local packer = require('packer').startup(function(use)
   use {"kevinhwang91/nvim-bqf"}
 
   -- better highlighting
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
   use {
     'kyazdani42/nvim-tree.lua',
@@ -107,7 +107,7 @@ end)
 require('plugin-config/nvim-cmp')
 require('plugin-config/telescope')
 require('plugin-config/nvim-tree')
-require('plugin-config/nvim-treesitter')
+-- require('plugin-config/nvim-treesitter')
 require('plugin-config/barbar')
 require('plugin-config/lsp-colors')
 require('plugin-config/lsp-trouble')
