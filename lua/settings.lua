@@ -7,8 +7,7 @@ local wo = vim.wo
 
 opt.termguicolors = true
 opt.background = 'dark'
-vim.cmd('colorscheme palenight')
-vim.api.nvim_command('let g:palenight_terminal_italics=1')
+vim.cmd('colorscheme onedark')
 
 -- ================= File management ================= --
 

@@ -9,111 +9,134 @@ if fn.empty(fn.glob(installPath)) > 0 then
 end
 
 local packer = require('packer').startup(function(use)
-  -- Packer should manage itself
-  use 'wbthomason/packer.nvim'
+    -- Packer should manage itself
+    use 'wbthomason/packer.nvim'
 
-  -- colorscheme
-  use 'drewtempelmeyer/palenight.vim'
-
-  -- git integration
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
+    -- =========== UI ========== --
+    use "olimorris/onedarkpro.nvim"
+    use 'nvim-tree/nvim-web-devicons'
+    use 'tpope/vim-surround'
+    use 'scrooloose/nerdcommenter'
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
-  }
 
-  -- surround vim
-  use 'tpope/vim-surround'
+    -- ========= Git ========== --
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        }
+    }
 
-  -- nerd commenter
-  use 'scrooloose/nerdcommenter'
+    use 'akinsho/git-conflict.nvim'
 
-  -- status line
-  use 'glepnir/galaxyline.nvim'
+    -- show recent files on empty nvim command
+    use 'mhinz/vim-startify'
 
-  -- show recent files on empty nvim command
-  use 'mhinz/vim-startify'
+    -- lsp config
+    use {
+        'neovim/nvim-lspconfig',
+        'williamboman/nvim-lsp-installer',
+    }
 
-  -- lsp config
-  use {
-    'neovim/nvim-lspconfig',
-    'williamboman/nvim-lsp-installer',
-  }
+    -- for LSP autocompletion
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
 
-  -- for LSP autocompletion
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/nvim-cmp'
+    -- For vsnip users.
+    use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/vim-vsnip'
 
-  -- For vsnip users.
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
+    -- telescope - searching / navigation
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            { 'nvim-lua/plenary.nvim' },
+            { 'nvim-telescope/telescope-live-grep-args.nvim' }
+        },
+        config = function()
+            require('telescope').load_extension('live_grep_args')
+        end
+    }
+    use {"kevinhwang91/nvim-bqf"}
 
-  -- TODO: prettify telescope vim, make it use regex & shorten the window
-  -- telescope - searching / navigation
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-        { 'nvim-lua/plenary.nvim' },
-        { 'nvim-telescope/telescope-live-grep-args.nvim' }
-    },
-    config = function()
-        require('telescope').load_extension('live_grep_args')
+    -- better highlighting
+    -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require'nvim-tree'.setup {}
+        end
+    }
+
+    -- prettier tabs
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    }
+
+    -- nice diagnostic pane on the bottom
+    use 'folke/lsp-trouble.nvim'
+
+    -- support the missing lsp diagnostic colors
+    use 'folke/lsp-colors.nvim'
+
+    -- better LSP UI (for code actions, rename etc.)
+    use 'tami5/lspsaga.nvim'
+
+
+    -- ========== Editing support ========== --
+
+    -- highlight variables under cursor
+    use 'RRethy/vim-illuminate'
+
+    -- show indentation levels
+    use 'lukas-reineke/indent-blankline.nvim'
+
+    -- support comment
+    use 'numToStr/Comment.nvim'
+
+    -- auto pair
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup {}
+        end
+    }
+
+    -- todo comment
+    use {
+        'folke/todo-comments.nvim',
+        requires = {
+            { 'nvim-lua/plenary.nvim' }
+        }
+    }
+
+    if packerBootstrap then
+        require('packer').sync()
     end
-  }
- 
-  -- better hotfix window (for showing and searching through results in telescope's find usages)
-  -- TODO: learn how to use?
-  use {"kevinhwang91/nvim-bqf"}
-
-  -- better highlighting
-  -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup {} end
-  }
-
-  -- prettier tabs
-  use 'romgrk/barbar.nvim'
-
-  -- nice diagnostic pane on the bottom
-  use 'folke/lsp-trouble.nvim'
-
-  -- support the missing lsp diagnostic colors
-  use 'folke/lsp-colors.nvim'
-
-  -- better LSP UI (for code actions, rename etc.)
-  use 'tami5/lspsaga.nvim'
-
-  -- show indentation levels
-  use 'lukas-reineke/indent-blankline.nvim'
-
-  -- highlight variables under cursor
-  use 'RRethy/vim-illuminate'
-
-  -- this will automatically install listed dependencies
-  -- only the first time NeoVim is opened, because that's when Packer gets installed
-  if packerBootstrap then
-    require('packer').sync()
-  end
 end)
 
 -- plugin specific configs go here
-require('plugin-config/nvim-cmp')
-require('plugin-config/telescope')
-require('plugin-config/nvim-tree')
--- require('plugin-config/nvim-treesitter')
-require('plugin-config/barbar')
-require('plugin-config/lsp-colors')
-require('plugin-config/lsp-trouble')
-require('plugin-config/lspsaga')
-require('plugin-config/galaxyline')
-require('plugin-config/gitsigns')
-require('plugin-config/indent-guide-lines')
+require('configs/nvim-cmp')
+require('configs/telescope')
+require('configs/nvim-tree')
+-- require('configs/nvim-treesitter')
+require('configs/barbar')
+require('configs/lsp-colors')
+require('configs/lsp-trouble')
+require('configs/lspsaga')
+require('configs/lualine')
+require('configs/gitsigns')
+require('configs/indent-guide-lines')
+require('configs/comment')
+require('configs/todo')
+require('configs/git')
 
 return packer
