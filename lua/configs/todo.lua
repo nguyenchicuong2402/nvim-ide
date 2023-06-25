@@ -1,4 +1,11 @@
-require('todo-comments').setup({
+local status_ok, todo_comments= pcall(require, "todo-comments")
+
+if not status_ok then
+    print('Plugin todo-comments does not installed')
+    return
+end
+
+todo_comments.setup({
     signs = true,
     sign_priority = 8,
     keywords = {

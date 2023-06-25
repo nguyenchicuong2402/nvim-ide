@@ -1,3 +1,7 @@
+-----------------------------------------------------------
+-- Key mappings
+-----------------------------------------------------------
+
 local opts = {noremap = true, silent = true}
 local set_keymap = vim.api.nvim_set_keymap
 
@@ -51,5 +55,3 @@ set_keymap('n', '<C-w>', '<Cmd>BufferClose<CR>', opts)
 
 -- [Alt + P]: pin tab
 set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
-
-

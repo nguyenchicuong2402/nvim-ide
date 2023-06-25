@@ -1,6 +1,8 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
+local status_ok, toggleterm= pcall(require, "toggleterm")
+
 if not status_ok then
- return
+    print('Plugin toggleterm does not installed')
+    return
 end
 
 toggleterm.setup({

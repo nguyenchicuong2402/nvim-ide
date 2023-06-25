@@ -1,3 +1,7 @@
+-----------------------------------------------------------
+-- LSP
+-----------------------------------------------------------
+
 local lsp_installer = require'nvim-lsp-installer'
 local lsp_installer_servers = require'nvim-lsp-installer.servers'
 

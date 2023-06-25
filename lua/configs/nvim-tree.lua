@@ -1,6 +1,12 @@
 local opts = {silent = true, noremap = true}
+local status_ok, nvim_tree= pcall(require, "nvim-tree")
 
-require('nvim-tree').setup({
+if not status_ok then
+    print('Plugin nvim-tree does not installed')
+    return
+end
+
+nvim_tree.setup({
     on_attach = on_attach,
     auto_reload_on_write = true,
     disable_netrw       = true,

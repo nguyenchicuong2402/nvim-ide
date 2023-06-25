@@ -1,3 +1,7 @@
+-----------------------------------------------------------
+-- Settings
+-----------------------------------------------------------
+
 local g = vim.g
 local opt = vim.o
 local bo = vim.bo
@@ -79,4 +83,3 @@ opt.hidden=true
 
 -- Copy paste between vim and everything else
 opt.clipboard = "unnamedplus"
-

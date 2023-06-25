@@ -1,8 +1,14 @@
--- Find files using lua fuctions
 local opts = { silent = true, noremap = true }
+local status_ok, telescope= pcall(require, "telescope")
+
+if not status_ok then
+    print('Plugin telescope does not installed')
+    return
+end
+
 local actions = require('telescope.actions')
 
-require('telescope').setup {
+telescope.setup {
     defaults = {
         -- program to use for searching with its arguments
         find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},

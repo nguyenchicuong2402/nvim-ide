@@ -1,3 +1,7 @@
+-----------------------------------------------------------
+-- Plugins
+-----------------------------------------------------------
+
 local fn = vim.fn
 local installPath = DATA_PATH..'/site/pack/packer/start/packer.nvim'
 
@@ -103,20 +107,20 @@ local packer = require('packer').startup(function(use)
 end)
 
 -- plugin specific configs go here
+require('configs/git/git-conflict')
+require('configs/git/gitsigns')
+
 require('configs/nvim-cmp')
 require('configs/telescope')
 require('configs/nvim-tree')
 -- require('configs/nvim-treesitter')
-require('configs/barbar')
 require('configs/lsp-colors')
 require('configs/lsp-trouble')
 require('configs/lspsaga')
 require('configs/lualine')
-require('configs/gitsigns')
 require('configs/indent-guide-lines')
 require('configs/comment')
 require('configs/todo')
-require('configs/git')
 require('configs/terminal')
 require('configs/tab')
 

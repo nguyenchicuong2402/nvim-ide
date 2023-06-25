@@ -1,6 +1,14 @@
 local opts = {silent = true, noremap = true}
+local status_ok, trouble= pcall(require, 'trouble')
+
+if not status_ok then
+    print('Plugin trouble does not installed')
+    return
+end
+
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
-require('trouble').setup{
+
+trouble.setup{
     position = "bottom", -- position of the list can be: bottom, top, left, right
     icons = true, -- use devicons for filenames
     mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"

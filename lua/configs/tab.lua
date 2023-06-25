@@ -1,8 +1,10 @@
 vim.g.barbar_auto_setup = false
 
 local status_ok, barbar= pcall(require, "barbar")
+
 if not status_ok then
- return
+    print('Plugin barbar does not installed')
+    return
 end
 
 barbar.setup({
@@ -99,4 +101,3 @@ barbar.setup({
     letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
     no_name_title = nil,
 })
-

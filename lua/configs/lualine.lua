@@ -1,6 +1,8 @@
 local status_ok, lualine= pcall(require, "lualine")
+
 if not status_ok then
- return
+    print('Plugin lualine does not installed')
+    return
 end
 
 lualine.setup({
