@@ -11,6 +11,14 @@ set_keymap('n', '<C-s>', '<Cmd>w<CR>', opts)
 -- [Ctrl + /]: toggle comment line
 set_keymap('n', '<C-/>', 'gcc', opts)
 
+-- ========== Terminal ========== --
+
+-- [Ctrl + \]: toggle terminal
+-- set_keymap('n'. '<C-\>', '<Cmd>ToggleTerm<CR>', opts)
+
+-- [ESC]: exit terminal mode
+set_keymap('t', '<ESC>', [[<C-\>]], { silent = true })
+
 -- ========== Tree Explorer ========== --
 
 -- [Ctrl + N]: toggle tree explorer
@@ -32,8 +40,11 @@ set_keymap('n', '<C-S-f>', "<Cmd>lua require'telescope.builtin'.live_grep()<CR>"
 
 -- ========== Tab bar ==========--
 
--- [Alt + ,]: previous tab
+-- [Ctrl + []: previous tab
 set_keymap('n', '<C-[>', '<Cmd>BufferPrevious<CR>', opts)
 
--- [Alt + .]: next tab
+-- [Ctrl + ]]: next tab
 set_keymap('n', '<C-]>', '<Cmd>BufferNext<CR>', opts)
+
+-- [Ctrl + W]: close tab
+set_keymap('n', '<C-w>', '<Cmd>BufferClose<CR>', opts)

@@ -17,9 +17,18 @@ local packer = require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
     use 'tpope/vim-surround'
     use 'scrooloose/nerdcommenter'
+    use 'akinsho/toggleterm.nvim'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    }
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = 'kyazdani42/nvim-web-devicons',
     }
 
     -- ========= Git ========== --
@@ -29,24 +38,25 @@ local packer = require('packer').startup(function(use)
             'nvim-lua/plenary.nvim'
         }
     }
-
     use 'akinsho/git-conflict.nvim'
 
     -- show recent files on empty nvim command
     use 'mhinz/vim-startify'
 
-    -- lsp config
+    -- ========== LSP ========== --
     use {
         'neovim/nvim-lspconfig',
         'williamboman/nvim-lsp-installer',
     }
-
-    -- for LSP autocompletion
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
+    use 'folke/lsp-trouble.nvim'
+    use 'folke/lsp-colors.nvim'
+    use 'tami5/lspsaga.nvim'
+
 
     -- For vsnip users.
     use 'hrsh7th/cmp-vsnip'
@@ -67,56 +77,24 @@ local packer = require('packer').startup(function(use)
 
     -- better highlighting
     -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
-        config = function()
-            require'nvim-tree'.setup {}
-        end
-    }
-
-    -- prettier tabs
-    use {
-        'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }
-
-    -- nice diagnostic pane on the bottom
-    use 'folke/lsp-trouble.nvim'
-
-    -- support the missing lsp diagnostic colors
-    use 'folke/lsp-colors.nvim'
-
-    -- better LSP UI (for code actions, rename etc.)
-    use 'tami5/lspsaga.nvim'
-
 
     -- ========== Editing support ========== --
-
-    -- highlight variables under cursor
     use 'RRethy/vim-illuminate'
-
-    -- show indentation levels
     use 'lukas-reineke/indent-blankline.nvim'
-
-    -- support comment
     use 'numToStr/Comment.nvim'
-
-    -- auto pair
     use {
         "windwp/nvim-autopairs",
         config = function()
             require("nvim-autopairs").setup {}
         end
     }
-
-    -- todo comment
     use {
         'folke/todo-comments.nvim',
         requires = {
             { 'nvim-lua/plenary.nvim' }
         }
     }
+
 
     if packerBootstrap then
         require('packer').sync()
@@ -138,5 +116,6 @@ require('configs/indent-guide-lines')
 require('configs/comment')
 require('configs/todo')
 require('configs/git')
+require('configs/terminal')
 
 return packer
