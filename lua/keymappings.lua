@@ -48,3 +48,8 @@ set_keymap('n', '<C-]>', '<Cmd>BufferNext<CR>', opts)
 
 -- [Ctrl + W]: close tab
 set_keymap('n', '<C-w>', '<Cmd>BufferClose<CR>', opts)
+
+-- [Alt + P]: pin tab
+set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+
+

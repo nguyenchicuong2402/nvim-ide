@@ -118,5 +118,6 @@ require('configs/comment')
 require('configs/todo')
 require('configs/git')
 require('configs/terminal')
+require('configs/tab')
 
 return packer
