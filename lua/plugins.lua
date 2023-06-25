@@ -18,6 +18,7 @@ local packer = require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'scrooloose/nerdcommenter'
     use 'akinsho/toggleterm.nvim'
+    use 'arkav/lualine-lsp-progress'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
