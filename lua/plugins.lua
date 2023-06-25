@@ -45,9 +45,6 @@ local packer = require('packer').startup(function(use)
     }
     use 'akinsho/git-conflict.nvim'
 
-    -- show recent files on empty nvim command
-    use 'mhinz/vim-startify'
-
     -- ========== LSP ========== --
     use {
         'neovim/nvim-lspconfig',
@@ -62,12 +59,11 @@ local packer = require('packer').startup(function(use)
     use 'folke/lsp-colors.nvim'
     use 'tami5/lspsaga.nvim'
 
-
-    -- For vsnip users.
+    -- ========== Utilities ========== --
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
-
-    -- telescope - searching / navigation
+    use 'mhinz/vim-startify'
+    use {'edluffy/hologram.nvim'}
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -123,5 +119,6 @@ require('configs/comment')
 require('configs/todo')
 require('configs/terminal')
 require('configs/tab')
+require('configs/image')
 
 return packer
