@@ -11,7 +11,7 @@ comment.setup({
     ignore = nil,
     toggler = {
         line = '<C-/>',
-        block = '<C-//>',
+        --block = '<C-//>',
     },
     opleader = {
         line = 'gc',

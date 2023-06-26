@@ -23,6 +23,20 @@ set_keymap('n', '<C-/>', 'gcc', opts)
 -- [ESC]: exit terminal mode
 set_keymap('t', '<ESC>', [[<C-\>]], { silent = true })
 
+-- ========== Windows ========== --
+
+-- [Ctrl + h/j/k/l]: window navigator
+set_keymap('n', '<C-h>', '<C-w>h', opts)
+set_keymap('n', '<C-j>', '<C-w>j', opts)
+set_keymap('n', '<C-k>', '<C-w>k', opts)
+set_keymap('n', '<C-l>', '<C-w>l', opts)
+
+-- [Ctrl + Arrow]: resize window
+set_keymap('n', '<C-Up>', ':resize -2<CR>', opts)
+set_keymap('n', '<C-Down>', ':resize +2<CR>', opts)
+set_keymap('n', '<C-Left>', ':vertical resize -2<CR>', opts)
+set_keymap('n', '<C-Right>', ':vertical resize +2<CR>', opts)
+
 -- ========== Tree Explorer ========== --
 
 -- [Ctrl + N]: toggle tree explorer

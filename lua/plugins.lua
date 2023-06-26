@@ -5,7 +5,6 @@
 local fn = vim.fn
 local installPath = DATA_PATH..'/site/pack/packer/start/packer.nvim'
 
--- install packer if it's not installed already
 local packerBootstrap = nil
 if fn.empty(fn.glob(installPath)) > 0 then
   packerBootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', installPath})
@@ -13,7 +12,6 @@ if fn.empty(fn.glob(installPath)) > 0 then
 end
 
 local packer = require('packer').startup(function(use)
-    -- Packer should manage itself
     use 'wbthomason/packer.nvim'
 
     -- =========== UI ========== --
@@ -46,18 +44,22 @@ local packer = require('packer').startup(function(use)
     use 'akinsho/git-conflict.nvim'
 
     -- ========== LSP ========== --
-    use {
-        'neovim/nvim-lspconfig',
-        'williamboman/nvim-lsp-installer',
-    }
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
+    --use {
+    --    'neovim/nvim-lspconfig',
+    --    'williamboman/nvim-lsp-installer',
+    --}
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim'}
     use 'hrsh7th/nvim-cmp'
+    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
     use 'folke/lsp-trouble.nvim'
     use 'folke/lsp-colors.nvim'
     use 'tami5/lspsaga.nvim'
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
 
     -- ========== Utilities ========== --
     use 'hrsh7th/cmp-vsnip'
@@ -106,6 +108,7 @@ end)
 require('configs/git/git-conflict')
 require('configs/git/gitsigns')
 
+require('configs/lsp')
 require('configs/nvim-cmp')
 require('configs/telescope')
 require('configs/nvim-tree')

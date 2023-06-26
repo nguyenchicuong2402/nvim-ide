@@ -9,19 +9,19 @@ end
 nvim_tree.setup({
     on_attach = on_attach,
     auto_reload_on_write = true,
-    disable_netrw       = true,
-    hijack_netrw        = true,
+    disable_netrw = true,
+    hijack_netrw = true,
     hijack_unnamed_buffer_when_opening = false,
-    open_on_tab         = false,
-    hijack_cursor       = false,
-    update_cwd          = false,
+    open_on_tab = false,
+    hijack_cursor = false,
+    update_cwd = false,
     diagnostics = {
         enable = false,
         icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+            hint = "",
+            info = "",
+            warning = "",
+            error = "",
         }
     },
     update_focused_file = {
@@ -40,13 +40,13 @@ nvim_tree.setup({
     view = {
         width = 40,
         centralize_selection = false,
-        cursorline = true,
+        cursorline = false,
         debounce_delay = 15,
         preserve_window_proportions = false,
         number = false,
         relativenumber = false,
         signcolumn = "yes",
-        hide_root_folder = false,
+        hide_root_folder = true,
         side = 'left',
         mappings = {
             custom_only = false,
@@ -70,7 +70,7 @@ nvim_tree.setup({
         group_empty = false,
         highlight_git = false,
         full_name = false,
-        highlight_opened_files = "none",
+        highlight_opened_files = "all",
         root_folder_label = ":~:s?$?/..?",
         indent_width = 2,
         indent_markers = {
@@ -259,7 +259,7 @@ local function on_attach(bufnr)
   -- Default mappings. Feel free to modify or remove as you wish.
   --
   -- BEGIN_DEFAULT_ON_ATTACH
-  vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node,          opts('CD'))
+  vim.keymap.set('n', '<C-Enter>', api.tree.change_root_to_node,          opts('CD'))
   vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer,     opts('Open: In Place'))
   vim.keymap.set('n', '<C-k>', api.node.show_info_popup,              opts('Info'))
   vim.keymap.set('n', '<C-r>', api.fs.rename_sub,                     opts('Rename: Omit Filename'))

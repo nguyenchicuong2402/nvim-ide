@@ -4,6 +4,7 @@
 
 local augroup = vim.api.nvim_create_augroup   -- Create/get autocommand group
 local autocmd = vim.api.nvim_create_autocmd   -- Create Autocommand
+local cmd = vim.cmd
 
 -- ========== General settings ========== --
 
@@ -35,3 +36,11 @@ autocmd('BufWritePre', {
         vim.lsp.buf.format({ async = true })
     end,
 })
+
+-- Reload configurations if we modify plugins.lua
+cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
