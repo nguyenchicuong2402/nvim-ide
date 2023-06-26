@@ -108,7 +108,6 @@ end)
 require('configs/git/git-conflict')
 require('configs/git/gitsigns')
 
-require('configs/lsp')
 require('configs/nvim-cmp')
 require('configs/telescope')
 require('configs/nvim-tree')
