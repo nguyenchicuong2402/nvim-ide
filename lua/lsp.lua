@@ -19,7 +19,7 @@ mason.setup({
 
 mason_lsp.setup({
     ensure_installed = {
-        'pylsp', 'gopls', 'lua_ls', 'rust_analyzer', 'bashls', 'cssls', 'cssmodules_ls',
+        'lua_ls', 'bashls', 'cssls', 'cssmodules_ls',
         'dockerls', 'ember', 'emmet_ls', 'eslint', 'graphql', 'groovyls', 'helm_ls',
         'jsonls', 'tailwindcss', 'tsserver', 'vimls', 'yamlls'
     },
